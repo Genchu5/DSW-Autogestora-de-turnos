@@ -1,6 +1,6 @@
 ### GET ALL -obtener todos los provincias
 GET http://localhost:3000/api/provinces
-Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hYUBnbWFpbC5jb20iLCJpYXQiOjE3NTYzMzY0MjIsImV4cCI6MTc2NzEzNjQyMn0.hZQn0CPNzo1mdiovSz44lwaKIi7URfSr_Ybw8ecb42k"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hYUBnbWFpbC5jb20iLCJpYXQiOjE3NTYzMzY0MjIsImV4cCI6MTc2NzEzNjQyMn0.hZQn0CPNzo1mdiovSz44lwaKIi7URfSr_Ybw8ecb42k
 
 ### ID
 @idProvince = {{createProvincee.response.body.data.idProvince}}

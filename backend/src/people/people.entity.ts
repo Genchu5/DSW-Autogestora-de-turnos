@@ -24,6 +24,12 @@ export class Person {
     @Property({ nullable: false, unique: false })
     password!: string
 
+    @Property({ nullable: true, unique: false})
+    speciality!: string
+
+    @Property({ nullable: false, unique: false})
+    type!: string
+
     @Property({nullable: false})
     active!: boolean
     
