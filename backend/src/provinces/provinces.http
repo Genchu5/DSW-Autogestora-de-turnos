@@ -1,12 +1,13 @@
 ### GET ALL -obtener todos los provincias
 GET http://localhost:3000/api/provinces
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hYUBnbWFpbC5jb20iLCJpYXQiOjE3NTYzMzY0MjIsImV4cCI6MTc2NzEzNjQyMn0.hZQn0CPNzo1mdiovSz44lwaKIi7URfSr_Ybw8ecb42k
+
+### GET ALL ACTIVE-obtener todos los provincias activas
+GET http://localhost:3000/api/provinces/active
 
 ### ID
-@idProvince = {{createProvincee.response.body.data.idProvince}}
 
 ### GET ONE - obtener una provincia
-GET http://localhost:3000/api/provinces/{{idProvince}}
+GET http://localhost:3000/api/provinces/1
 
 ### POST - crear una nueva provincia
 # @name createProvincee
@@ -19,17 +20,25 @@ Content-Type: application/json
 }
 
 ### PUT - modificar una provincia
-PUT http://localhost:3000/api/provinces/{{idProvince}}
+PUT http://localhost:3000/api/provinces/1
 Content-Type: application/json
 
 {
-  "nameProvince": "Tierra del Fuego"
+  "nameProvince": "Juan"
 }
 
 ### PATCH - modificar una provincia
-PATCH  http://localhost:3000/api/provinces/15
+PATCH  http://localhost:3000/api/provinces/1
 Content-Type: application/json
 
 {
-  "active": true
+  "active": false,
+  "nameProvince": "Juana"
+}
+
+### PATCH - Dar de baja ciudades y provincia
+PATCH  http://localhost:3000/api/provinces/1/toggle-state
+Content-Type: application/json
+
+{
 }

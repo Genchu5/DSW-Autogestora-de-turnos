@@ -1,6 +1,9 @@
 ### obtener todos las localidades
 GET http://localhost:3000/api/cities
 
+### Obtener todas las localidades activas
+GET http://localhost:3000/api/cities/actives
+
 ### ID
 @id = {{createCity.response.body.data.idCity}}
 
@@ -13,23 +16,24 @@ POST http://localhost:3000/api/cities
 Content-Type: application/json
 
 {
-    "nameCity": "cornudo",
-    "province": "1",
+    "nameCity": "Roldan",
+    "province": "2",
     "offices" : []
 }
 
 ### modificar una localidad (PUT - recurso completo e idempotente)
-PUT http://localhost:3000/api/cities/4
+PUT http://localhost:3000/api/cities/2
 Content-Type: application/json
 
 {
-  "state": false
+  "nameCity": "Nuevisima ciudad de santafe",
+  "province": 1
 }
 
-### modificar una localidad (PATCH - recurso parcial)
-PATCH http://localhost:3000/api/cities/18
+### cambiar el estado de una ciudad)
+PATCH http://localhost:3000/api/cities/2/toggle-state
 Content-Type: application/json
 
 {
-  "active": false
+
 }

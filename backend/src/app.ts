@@ -18,7 +18,8 @@ app.use((req, res, next) => {
   RequestContext.create(orm.em, next)
 })
 
-app.use('/api/provinces', verifyToken, provinceRouter)
+//app.use('/api/provinces', verifyToken, provinceRouter)
+app.use('/api/provinces', provinceRouter)
 app.use('/api/cities', cityRouter)
 app.use('/api/people', personRouter)
 app.use('/api/offices', officeRouter)

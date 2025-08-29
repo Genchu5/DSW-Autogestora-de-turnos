@@ -9,7 +9,7 @@ function sanitizeOfficeInput(req: Request, res: Response, next: NextFunction) {
     city: req.body.city,
     closingTime: req.body.closingTime,
     openingTime: req.body.openingTime,
-    active: req.body.active !== undefined ? req.body.active : true, // Default state to true if not provided
+    active: req.body.active !== undefined ? req.body.active : true,
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -20,10 +20,9 @@ function sanitizeOfficeInput(req: Request, res: Response, next: NextFunction) {
   next()
 }
 
-/*
 function validateOfficeTimes(req: Request, res: Response, next: NextFunction) {
 
-  if('openingTime' in req.body.sanitizedInput && 'closingTime' in req.body.sanitizedInput) { //This is because our sanitizer function eliminates all keys that are undefined, therefore not working on put or patch http requets that don't have the correct keys
+  if('openingTime' in req.body.sanitizedInput && 'closingTime' in req.body.sanitizedInput) {
     let openingTime = req.body.sanitizedInput.openingTime
     let closingTime = req.body.sanitizedInput.closingTime
 
@@ -39,7 +38,6 @@ function validateOfficeTimes(req: Request, res: Response, next: NextFunction) {
 
   next()
 } 
-*/
 
 const em = orm.em
 
@@ -48,6 +46,7 @@ async function findAll(req: Request, res: Response) {
     const offices = await em.find(
       Office,
       {},
+      {populate: ['city']}
     )
     res.status(200).json({ message: 'Find all offices', data: offices });
   } catch (error: any) {
@@ -71,6 +70,7 @@ async function findOne(req: Request, res: Response) {
     const office = await em.findOneOrFail(
       Office,
       {idOffice: id},
+      {populate: ['city']}
     )
     res.status(200).json({ message: 'Office found', data: office });
   } catch (error: any) {
@@ -90,4 +90,4 @@ async function update(req: Request, res: Response) {
   }
 }
 
-export {sanitizeOfficeInput, findAll, findOne, add, update}
+export {sanitizeOfficeInput, validateOfficeTimes, findAll, findOne, add, update}
