@@ -10,11 +10,14 @@ interface UserLabelProps {
 }
 
 export function UserLabel({ user }: UserLabelProps){
+    const statusClass = user.active ? 'green' : 'red';
     return (
-        <div className={`${user.active? 'crud-label-green' : 'crud-label-red' } crud-label city-label`}>
-            <p className="crud-email">{user.email}</p>
-            <p className="crud-name">{user.name}</p>
-            <p className="crud-name">{user.surname}</p>
+        <div className={`crud-label user-label ${statusClass}`}>
+            <span className="crud-email">{user.email}</span>
+            <div className="user-name-group">
+                <span className="crud-name">{user.name}</span>
+                <span className="crud-name">{user.surname}</span>
+            </div>
         </div>
     );
 }
