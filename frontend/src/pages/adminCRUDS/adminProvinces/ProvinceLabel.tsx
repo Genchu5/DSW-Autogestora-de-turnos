@@ -1,12 +1,20 @@
 import "../CRUDSLabel.css";
 
+interface ProvinceLabelProps {
+  name: string;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
+  active: boolean;
+}
 
-export function ProvinceLabel(props: {name: string, id: string, onDelete: (id: string) => void, onEdit: (id: string) => void, active: boolean}) {
+export function ProvinceLabel({ name, active }: ProvinceLabelProps) {
+  const statusClass = active ? 'green' : 'red';
 
   return (
-    <div className={`${props.active ? 'crud-label-green' : 'crud-label-red'} crud-label`}>
-      <p className="crud-name"><strong>{props.name}</strong></p>
-      <p className="crud-id"><strong>ID : {props.id}</strong></p>
+    <div className={`crud-label ${statusClass}`}>
+      <span className="crud-name">
+        <strong>{name}</strong>
+      </span>
     </div>
   );
 }
