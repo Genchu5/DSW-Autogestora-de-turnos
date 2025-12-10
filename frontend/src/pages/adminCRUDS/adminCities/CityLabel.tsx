@@ -12,11 +12,11 @@ interface CityLabelProps {
 }
 
 export function CityLabel({ city }: CityLabelProps){
+    const statusClass = city.active ? 'green' : 'red';
     return (
-        <div className={`${city.active? 'crud-label-green' : 'crud-label-red'} crud-label city-label`}>
-            <p className="crud-id">ID: {city.idCity}</p>
-            <p className="crud-name city">{city.nameCity}</p>
-            <p className="crud-name">{city.province.nameProvince}</p>
+        <div className={`crud-label city-label ${statusClass}`}>
+            <span className="crud-name city">{city.nameCity}</span>
+            <span className="crud-name">{city.province.nameProvince}</span>
         </div>
     );
 }
