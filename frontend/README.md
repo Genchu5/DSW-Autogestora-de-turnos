@@ -1,69 +1,135 @@
-# React + TypeScript + Vite
+# Autogestora de Turnos — Consultorios de Jardín
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de la aplicación de autogestión de turnos médicos/consultorios. Construido con **React 19 + TypeScript + Vite 7**.
 
-Currently, two official plugins are available:
+## Descripción general
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Sistema web para la gestión de turnos con tres roles de usuario:
 
-## Expanding the ESLint configuration
+- **Admin**: CRUD de usuarios, provincias, ciudades, consultorios y salas.
+- **Profesional**: visualización y gestión de su propia agenda de turnos.
+- **Cliente**: solicitud, consulta y cancelación de turnos.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Incluye autenticación JWT, integración con Google reCAPTCHA, notificaciones toast y un asistente de IA integrado.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Requisitos previos
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Node.js >= 18
+- npm
+- Backend corriendo en `http://localhost:3000`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Instalación
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Ejecución
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Desarrollo
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Inicia el servidor de desarrollo de Vite en `http://localhost:5173`.
+Las llamadas a `/api` se redirigen automáticamente al backend en `localhost:3000` (configurado en `vite.config.ts`).
+
+### Build de producción
+
+```bash
+npm run build
+```
+
+### Preview del build
+
+```bash
+npm run preview
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Tests
+
+### Unit tests — Vitest
+
+Ejecutar todos los tests una vez:
+
+```bash
+npx vitest run
+```
+
+Ejecutar en modo watch (re-ejecuta al guardar cambios):
+
+```bash
+npx vitest
+```
+
+Tecnologías utilizadas: **Vitest** + **@testing-library/react** + **jsdom**.
+Setup file: `src/setupTests.ts`.
+
+### Tests E2E — Playwright
+
+Ejecutar todos los tests E2E:
+
+```bash
+npx playwright test
+```
+
+Ejecutar en modo con interfaz visual:
+
+```bash
+npx playwright test --ui
+```
+
+Ver reporte HTML del último run:
+
+```bash
+npx playwright show-report
+```
+
+Los tests están en el directorio `testsE2E/` y se ejecutan en Chromium, Firefox y WebKit.
+
+## Estructura del proyecto
+
+```
+src/
+├── App.tsx                   # Configuración de rutas
+├── PrivateRoutes.tsx          # Protección de rutas por rol
+├── axios.ts                  # Instancia Axios con interceptores JWT
+├── setupTests.ts             # Setup de tests unitarios
+├── context/
+│   ├── AuthContext.tsx        # Contexto de autenticación
+│   └── AuthWatcher.tsx        # Watcher de sesión
+├── components/
+│   ├── chatAssistant/         # Widget asistente de IA
+│   ├── crudNav/               # Navegación de CRUDs
+│   ├── defaultLayout/         # Layout base
+│   ├── header/                # Encabezado
+│   ├── inputs/                # Inputs reutilizables
+│   ├── navZone/               # Navegación lateral
+│   ├── searchBar/             # Barra de búsqueda
+│   └── reCaptcha.tsx          # Componente reCAPTCHA
+└── pages/
+    ├── adminCRUDS/            # Páginas CRUD del admin
+    ├── appointments/          # Gestión de turnos
+    ├── homePages/             # Páginas de inicio por rol
+    ├── login/                 # Login
+    ├── register/              # Registro
+    ├── newPassword/           # Recuperación de contraseña
+    ├── scheduleProfessional/  # Agenda del profesional
+    ├── editProfie/            # Edición de perfil
+    ├── notFoundPage/          # Página 404
+    ├── commonServices.ts      # Servicios compartidos
+    └── types.ts               # Tipos TypeScript globales
+```
+
+## Variables de entorno
+
+No se requieren variables de entorno para desarrollo. La URL del backend se configura via proxy en [`vite.config.ts`](vite.config.ts).
+
+El token JWT se almacena en `localStorage` bajo la clave `"token"`.
