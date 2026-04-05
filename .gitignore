@@ -29,3 +29,8 @@ Thumbs.db
 
 ## built vscode extensions
 *.vsix
+
+# Claude Code
+.claude/
+.playwright-mcp/
+CLAUDE.md

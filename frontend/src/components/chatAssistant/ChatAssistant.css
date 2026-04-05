@@ -314,4 +314,9 @@
         bottom: 16px;
         right: 16px;
     }
+
+    /* Ocultar FAB cuando el panel está abierto — el panel ya tiene su propio botón X */
+    .chat-assistant-fab.chat-assistant-fab--active {
+        display: none;
+    }
 }

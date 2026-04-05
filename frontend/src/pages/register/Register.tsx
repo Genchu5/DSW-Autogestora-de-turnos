@@ -141,6 +141,16 @@ export function Register() {
   const [activo, setPage] = useState(false);
 
   const changePage = () => {
+    if (!activo) {
+      if (!formData.email || !formData.contraseña || !formData.confirmarContraseña) {
+        toast.error("Complete todos los campos requeridos", { className: "feedBack-box error" });
+        return;
+      }
+      if (formData.contraseña !== formData.confirmarContraseña) {
+        toast.error("Las contraseñas no coinciden", { className: "feedBack-box error" });
+        return;
+      }
+    }
     setPage(!activo);
   };
 
@@ -211,7 +221,7 @@ export function Register() {
               <img src={Logo} alt="Logo" />
             </div>
 
-            <div className="toast-container">
+            <div className="register-toast-wrapper">
               <ToastContainer position="top-right" closeOnClick={false} draggable={false} />
             </div>
 
