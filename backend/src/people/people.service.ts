@@ -81,7 +81,11 @@ export class PeopleService {
         });
       }
       const office = s.room.office;
-      map.get(email).offices.set(office.idOffice, `${office.description} (${office.city.nameCity})`);
+      map.get(email).offices.set(office.idOffice, {
+        id: office.idOffice,
+        name: office.description,
+        city: office.city.nameCity,
+      });
     }
 
     return Array.from(map.values()).map((p) => ({
