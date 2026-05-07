@@ -40,8 +40,9 @@ export function findAllActiveClients(): Promise<Person[]>{
 export function findProfessionalsOfficeSpecialty(officeId:string,speciality?:string): Promise<Person[]>{
     return api.get(`/people/professionals/office/${officeId}${speciality ? "/" + speciality : ""}`)
     .then(response => response.data.data)
-    .catch(()=> {
-        return [];
+    .catch((err: any) => {
+        const backendMsg = err.response?.data?.message || err.message;
+        throw new Error(backendMsg);
     });
 }
 

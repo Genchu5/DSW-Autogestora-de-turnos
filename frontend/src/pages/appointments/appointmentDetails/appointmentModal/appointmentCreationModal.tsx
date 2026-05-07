@@ -2,9 +2,7 @@ import { useState } from "react";
 import type { appointmentCreationModalProps } from "../../appointmentTypes.ts"
 import "./appointmentCreationModal.css"
 import { FaChevronLeft, FaTimes , FaPhone, FaUserTie } from 'react-icons/fa';
-import { ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 export function diffInMinutes(time1: string, time2: string): number {
   const [h1, m1] = time1.split(":").map(Number);
   const [h2, m2] = time2.split(":").map(Number);
@@ -16,7 +14,6 @@ export function diffInMinutes(time1: string, time2: string): number {
 }
 
 export function AppointmentCreationModal({isOpen, onClose, appointment, professional, office, onCreate}: appointmentCreationModalProps) {
-    const navigate = useNavigate();
     const [showButton, setShowButton] = useState(true);
 
     let auxDate;
@@ -46,10 +43,7 @@ export function AppointmentCreationModal({isOpen, onClose, appointment, professi
             setShowButton(false);
             try {
                 await onCreate({date: fechaAppointment,initialHour: appointment.initialHour,type: appointment.type,professionalEmail: professional.email,officeId: office.idOffice});
-                setTimeout(() => {
-                    navigate('/');
-                    window.scrollTo(0, 0);
-                }, 5000);
+                toast.success("Turno solicitado con éxito", { onClose: () => onClose() });
             } catch {
                 setShowButton(true);
             }

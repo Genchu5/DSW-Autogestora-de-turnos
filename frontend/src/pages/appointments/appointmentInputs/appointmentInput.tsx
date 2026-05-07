@@ -81,7 +81,7 @@ export function AppointmentInput() {
                 // 1) Traer lista de profesionales del consultorio
                 const officeProfs = await findProfessionalsOfficeSpecialty(String(office.idOffice), undefined);
                 // 2) Verificar que el profesional elegido pertenezca a ese consultorio
-                const belongs = officeProfs.some(p => p.email === professional.email);
+                const belongs = officeProfs.some(p => p.email.toLowerCase() === professional.email.toLowerCase());
                 if (belongs) {
                     // 3) findOne solo para traer los datos completos/actualizados del profesional
                     const single = await findOne(professional.email);

@@ -57,10 +57,7 @@ export function AppointmentDetails() {
 
     async function addAppointment(newAppointment:{date: string,initialHour: string,type: "simple" | "taller",professionalEmail: string,officeId: string}){     
         try{
-            const createdAppointment = await createAppointment(newAppointment)
-            if (createdAppointment ){
-                toast.success(`Turno solicitado con éxito`);
-                }
+            await createAppointment(newAppointment);
         }catch (error:any){
             toast.error(`Error al solicitar el turno: ${error.message}`);
             throw error;
