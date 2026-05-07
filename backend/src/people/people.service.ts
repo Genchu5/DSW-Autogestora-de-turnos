@@ -59,6 +59,40 @@ export class PeopleService {
     return em.findOne(Person, { email });
   }
 
+  async findProfessionalsWithOffices(officeId?: number, speciality?: string): Promise<any[]> {
+    const filter: any = { person: { type: "professional", active: true } };
+    if (speciality) filter.person.speciality = speciality;
+    if (officeId) filter.room = { office: { idOffice: officeId } };
+
+    const schedules = await em.find(Schedule, filter, {
+      populate: ["person", "room.office", "room.office.city"],
+    });
+
+    const map = new Map<string, any>();
+    for (const s of schedules) {
+      const email = s.person.email;
+      if (!map.has(email)) {
+        map.set(email, {
+          email,
+          name: s.person.name,
+          surname: s.person.surname,
+          speciality: s.person.speciality,
+          offices: new Map<number, string>(),
+        });
+      }
+      const office = s.room.office;
+      map.get(email).offices.set(office.idOffice, `${office.description} (${office.city.nameCity})`);
+    }
+
+    return Array.from(map.values()).map((p) => ({
+      email: p.email,
+      name: p.name,
+      surname: p.surname,
+      speciality: p.speciality,
+      offices: Array.from(p.offices.values()),
+    }));
+  }
+
   async findProfesionalByOffice(officeId: number, speciality?: string): Promise<Person[]> {
     const query = em
       .createQueryBuilder(Schedule, "s")

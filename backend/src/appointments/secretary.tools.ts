@@ -18,7 +18,7 @@ export const SECRETARY_TOOLS: Groq.Chat.ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "get_professionals",
-      description: "Obtiene la lista de profesionales disponibles, opcionalmente filtrada por consultorio y/o especialidad.",
+      description: "Obtiene la lista de profesionales disponibles con los consultorios donde atienden y su localidad. Opcionalmente filtrada por consultorio y/o especialidad.",
       parameters: {
         type: "object",
         properties: {

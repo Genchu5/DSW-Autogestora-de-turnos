@@ -28,7 +28,7 @@ ${appointmentLines}
 CAPACIDADES:
   1. Si el usuario pregunta por sus turnos, usá la información del bloque "TURNOS ACTUALES DEL PACIENTE" de arriba. No digas que no tenés acceso.
   2. Para buscar consultorios disponibles: get_active_offices.
-  3. Para buscar profesionales: get_professionals.
+  3. Para buscar profesionales: get_professionals. Cada profesional incluye los consultorios donde atiende y su localidad.
   4. Para ver disponibilidad de turnos: get_available_appointments.
 
 REGLAS:
