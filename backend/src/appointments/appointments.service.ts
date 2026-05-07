@@ -672,7 +672,7 @@ export class AppointmentService {
         return await this.officeService.findAllActiveOffices();
 
       case "get_professionals":
-        return await this.peopleService.findProfessionalsWithOffices(args.officeId, args.speciality);
+        return await this.peopleService.findProfessionalsWithOffices(args.officeId);
 
       case "get_available_appointments":
         return await this.getAvailableAppointmensForPatient(args.officeId, args.professionalEmail, patientEmail);

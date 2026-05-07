@@ -59,9 +59,8 @@ export class PeopleService {
     return em.findOne(Person, { email });
   }
 
-  async findProfessionalsWithOffices(officeId?: number, speciality?: string): Promise<any[]> {
+  async findProfessionalsWithOffices(officeId?: number): Promise<any[]> {
     const filter: any = { person: { type: "professional", active: true } };
-    if (speciality) filter.person.speciality = speciality;
     if (officeId) filter.room = { office: { idOffice: officeId } };
 
     const schedules = await em.find(Schedule, filter, {
