@@ -37,6 +37,14 @@ vi.mock("./loginServices", () => ({
   LoginService: vi.fn(),
 }));
 
+// 5. Mock de ReCaptcha — simula captcha completado
+vi.mock("../../components/reCaptcha", () => ({
+  default: ({ onChange }: { onChange: (ok: boolean) => void }) => {
+    onChange(true);
+    return null;
+  },
+}));
+
 describe("Login Component", () => {
   
   beforeEach(() => {
