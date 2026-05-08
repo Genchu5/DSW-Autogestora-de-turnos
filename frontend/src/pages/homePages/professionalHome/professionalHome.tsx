@@ -1,4 +1,4 @@
-import { FaCalendarAlt, FaUser, FaClipboardList } from "react-icons/fa";
+import { FaCalendarAlt, FaClipboardList } from "react-icons/fa";
 import HomeCard from "../HomeCard";
 import {NavZone} from "../../../components/navZone/NavZone";
 import "./professionalHome.css";
@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 export function ProfessionalHome() {
   const [professional, setProfessional] = useState<Person | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
   
@@ -23,19 +24,29 @@ export function ProfessionalHome() {
           }
           setProfessional(data);
         })
-        .catch(err => toast.error(`Error al cargar al profesional: ${err.message}`));
+        .catch(err => toast.error(`Error al cargar al profesional: ${err.message}`))
+        .finally(() => setLoading(false));
     }, []);
-    
+
+  if (loading) {
+    return (
+      <div className="status-state">
+        <p>Cargando los datos...</p>
+      </div>
+    );
+  }
   return (
     <div className="professional-home-container-whole">
 
       <div className="nav-zone-container">
-        <NavZone title={`Bienvenido ${professional?.surname}, ${professional?.name}`} />
+        <NavZone title={professional 
+          ? `Bienvenido ${professional.surname}, ${professional.name}` 
+          : ""} 
+        />
       </div>
         <div className="professional-cards-container">
           <div className="professional-card"><HomeCard icon={FaCalendarAlt} title="Horarios" link="/scheduleProfessional" /></div>
           <div className="professional-card"><HomeCard icon={FaClipboardList} title="Turnos" link="/appointmentsList" /></div>
-          {/*<div className="professional-card"><HomeCard icon={FaUser} title="Pacientes" link="/pacientes" /></div>*/}
         </div>
       <ToastContainer className = {`toast-container`} draggable={false}/>
     </div>
