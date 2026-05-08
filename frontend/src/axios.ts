@@ -25,7 +25,7 @@ api.interceptors.response.use(
 
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_API_URL}/refreshToken`, 
+          `${import.meta.env.VITE_API_URL || "/api" }/refreshToken`, 
           { withCredentials: true }
         );
 
